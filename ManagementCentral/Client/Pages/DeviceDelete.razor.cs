@@ -25,6 +25,7 @@ namespace ManagementCentral.Client.Pages
         protected void Delete(string DeviceId)
         {
             DeviceDataService.DeleteDevice(int.Parse(DeviceId));
+
             NavigationManager.NavigateTo($"/listofdevices");
 
         }
