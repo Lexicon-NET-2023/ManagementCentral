@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace ManagementCentral.Shared.Domain
 
         public DateTime Date { get; set; }
 
+        [StringLength(15, ErrorMessage = "Längden måste vara mellan {2} och {1}", MinimumLength = 6)]
         public string DeviceType { get; set; } = string.Empty;
 
         public Status Status { get; set; } 
