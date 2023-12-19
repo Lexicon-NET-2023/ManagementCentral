@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagementCentral.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagementCentral.Shared", "ManagementCentral\Shared\ManagementCentral.Shared.csproj", "{DCB24AD4-6ACA-4C51-A3C9-70D117BAFA46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceApi", "ServiceApi\DeviceApi.csproj", "{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DCB24AD4-6ACA-4C51-A3C9-70D117BAFA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCB24AD4-6ACA-4C51-A3C9-70D117BAFA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCB24AD4-6ACA-4C51-A3C9-70D117BAFA46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
