@@ -13,18 +13,21 @@ namespace ManagementCentral.Client.Pages
         public NavigationManager NavigationManager { get; set; }    
 
         [Parameter]
-        public string DeviceId { get; set; }
+        public int? DeviceId { get; set; }
 
         public Device Device { get; set; } = new Device();
 
         protected override void OnInitialized()
         {
-            Device = DeviceDataService.GetDevice(int.Parse(DeviceId));
+            if (DeviceId.HasValue)
+            {
+                Device = DeviceDataService.GetDevice(DeviceId.Value);
+            }
         }
 
-        protected void Delete(string DeviceId)
+        protected void Delete(int DeviceId)
         {
-            DeviceDataService.DeleteDevice(int.Parse(DeviceId));
+            DeviceDataService.DeleteDevice(DeviceId);
 
             NavigationManager.NavigateTo($"/listofdevices");
 
