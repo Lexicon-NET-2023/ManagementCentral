@@ -9,6 +9,7 @@ namespace ManagementCentral.Client.Components
     public partial class DeviceList
     {
         [Parameter]
+        [EditorRequired]
         public string ExtraCaption { get; set; } = string.Empty;
 
         [Inject]
