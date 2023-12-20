@@ -1,5 +1,8 @@
 ﻿@page "/apirequests"
 @inject HttpClient Http
+@using ManagementCentral.Shared.Domain
+@using System.Text.Json
+@using System.Text.Json.Serialization
 
 <h3>ApiRequests</h3>
 
@@ -40,11 +43,14 @@
 
     protected async Task GetDeviceTypeFromApi()
     {
-        var response = await Http.GetAsync("/device/1");
+        var response = await Http.GetAsync("/device/0");
 
         if (response.IsSuccessStatusCode)
         {
-            deviceTypeFromApi = await response.Content.ReadAsStringAsync();
+            var stringData = await response.Content.ReadAsStringAsync();
+            var a = JsonSerializer.Deserialize(stringData, typeof(List<Device>)) as List<Device>;
+            List<Device> devices = System.Text.Json.JsonSerializer.Deserialize<List<Device>>(stringData);
+            //var devices = await response.Content;
         }
     }
 }
