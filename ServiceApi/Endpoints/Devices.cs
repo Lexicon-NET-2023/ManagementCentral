@@ -10,8 +10,10 @@ namespace DeviceApi.Endpoints
 
             devices.MapGet("/device", () => "Simple text from API");
 
+            
             devices.MapGet("/devices", () => Collections.Devices.DeviceList);
 
+            
             devices.MapGet("/device/{DeviceId}", (int DeviceId) => Collections.Devices.DeviceList
                                                                     .FirstOrDefault(device => device.DeviceId == DeviceId));
 
@@ -20,7 +22,9 @@ namespace DeviceApi.Endpoints
                 Random rnd = new Random();
                 device.DeviceId = rnd.Next(100000);
                 Collections.Devices.DeviceList.Add(device);
+                return Results.Accepted("Accepted");
             });
+
 
             devices.MapPut("/device/edit/{DeviceId}", (int DeviceId, Device device) =>
             {
@@ -34,6 +38,7 @@ namespace DeviceApi.Endpoints
                 }
             });
 
+
             devices.MapDelete("/device/delete/{DeviceId}", (int DeviceId) =>
             {
                 var Device = Collections.Devices.DeviceList.FirstOrDefault(device => device.DeviceId == DeviceId);
@@ -44,7 +49,7 @@ namespace DeviceApi.Endpoints
                 }
                 else
                 {
-                    return Results.Problem("Error");
+                    return Results.NotFound("Could not delete!");
                 }
             });
 

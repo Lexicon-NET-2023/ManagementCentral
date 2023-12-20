@@ -1,7 +1,11 @@
 ﻿@page "/deviceadd"
 @using ManagementCentral.Shared.Domain
+@inject HttpClient Http
 
 <h3>Add Device</h3>
+
+responseData: @responseData<br />
+statusCode : @statusCode
 
 <section class="device-edit">
 
