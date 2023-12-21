@@ -32,8 +32,13 @@
                 <td scope="row">@device.Status</td>
                 <td scope="row"><a href="@($"deviceview/{device.DeviceId}")" class="btn btn-outline-primary">View</a></td>
                 <td scope="row"><a href="@($"deviceupdate/{device.DeviceId}")" class="btn btn-outline-primary">Update</a></td>
-                <td scope="row"><a href="@($"devicedelete/{device.DeviceId}")" class="btn btn-outline-primary">Delete</a></td>
-
+                <td scope="row">
+                    <AuthorizeView Roles="Admin">
+                        <Authorized>
+                            <a href="@($"devicedelete/{device.DeviceId}")" class="btn btn-outline-primary">Delete</a>
+                        </Authorized>
+                    </AuthorizeView>
+                </td>
             </tr>
         }
     </tbody>

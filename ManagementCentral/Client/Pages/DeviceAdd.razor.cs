@@ -35,6 +35,6 @@ namespace ManagementCentral.Client.Pages
             statusCode = response.StatusCode;
 
         //NavigationManager.NavigateTo($"/listofdevices");
-    }
+        }
     }
 }
