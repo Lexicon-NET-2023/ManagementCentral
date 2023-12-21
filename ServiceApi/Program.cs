@@ -4,8 +4,10 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var specOrigin = "MySpecOrigin";
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
 
+var specOrigin = "MySpecOrigin";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: specOrigin, policy =>
@@ -30,8 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 
+app.UseHttpsRedirection();
 app.RegisterUserEndpoint();
 
 app.UseCors(specOrigin);

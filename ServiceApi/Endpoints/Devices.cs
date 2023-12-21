@@ -6,16 +6,17 @@ namespace DeviceApi.Endpoints
     {
         public static void RegisterUserEndpoint(this IEndpointRouteBuilder routes)
         {
-            var devices = routes.MapGroup("");
+            var devices = routes.MapGroup("").RequireAuthorization();
 
             devices.MapGet("/device", () => "Simple text from API");
+                
+           
+            devices.MapGet("/devices", () => Collections.Devices.DeviceList)
+                .AllowAnonymous();
 
-            
-            devices.MapGet("/devices", () => Collections.Devices.DeviceList);
-
-            
-            devices.MapGet("/device/{DeviceId}", (int DeviceId) => Collections.Devices.DeviceList
-                                                                    .FirstOrDefault(device => device.DeviceId == DeviceId));
+            devices.MapGet("/device/{DeviceId}",
+                (int DeviceId) => Collections.Devices.DeviceList
+                .FirstOrDefault(device => device.DeviceId == DeviceId));
 
             devices.MapPost("/device/add", (Device device) =>
             {
