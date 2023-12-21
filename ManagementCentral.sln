@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagementCentral.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagementCentral.Shared", "ManagementCentral\Shared\ManagementCentral.Shared.csproj", "{DCB24AD4-6ACA-4C51-A3C9-70D117BAFA46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceApi", "ServiceApi\DeviceApi.csproj", "{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceApi", "ServiceApi\DeviceApi.csproj", "{FF21BE7A-95A4-42AF-AF9B-3DCF60EE3AF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
