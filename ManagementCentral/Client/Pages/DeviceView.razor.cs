@@ -1,8 +1,10 @@
 ﻿using ManagementCentral.Client.Services;
 using ManagementCentral.Shared.Domain;
-
 using Microsoft.AspNetCore.Components;
+using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Text.Json;
+using static System.Net.WebRequestMethods;
 
 namespace ManagementCentral.Client.Pages
 {
@@ -18,31 +20,37 @@ namespace ManagementCentral.Client.Pages
 
         public string responseData = string.Empty;
 
-        public bool Error = false;
+        public string ErrorMessage = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
-
-            var response = await Http.GetAsync("/device/" + DeviceId);
-            if (response.IsSuccessStatusCode) 
+            try
             {
-                var options = new JsonSerializerOptions
+                var response = await Http.GetAsync("/device/" + DeviceId);
+                if (response.IsSuccessStatusCode)
                 {
-                    WriteIndented = true,
-                    PropertyNameCaseInsensitive = true
-                };
+                    var options = new JsonSerializerOptions
+                    {
+                        WriteIndented = true,
+                        PropertyNameCaseInsensitive = true
+                    };
 
-                responseData = await response.Content.ReadAsStringAsync();
-                if (!string.IsNullOrEmpty(responseData))
-                {
-                    Device = JsonSerializer.Deserialize<Device>(responseData, options);
+                    responseData = await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrEmpty(responseData))
+                    {
+                        Device = JsonSerializer.Deserialize<Device>(responseData, options);
+                    }
                 }
-            } 
-            else
-            {
-                Error = true;
+                else
+                {
+                    ErrorMessage = "Could not read from API!" + response.StatusCode;
+                }
             }
-
+            catch (Exception exeption)
+            {
+                ErrorMessage = exeption.Message;
+            }
+ 
             await base.OnInitializedAsync();
         }
 

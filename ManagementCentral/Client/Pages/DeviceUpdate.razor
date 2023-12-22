@@ -1,5 +1,9 @@
 ﻿@page "/deviceupdate/{DeviceId:int}"
 @using ManagementCentral.Shared.Domain
+@using Microsoft.AspNetCore.Authorization
+@inject HttpClient Http
+
+@attribute [Authorize(Roles = "Admin")]
 
 <h3>Update a Device</h3>
 

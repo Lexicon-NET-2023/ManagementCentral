@@ -8,24 +8,60 @@ namespace DeviceApi.Endpoints
         {
             var devices = routes.MapGroup("").RequireAuthorization();
 
-            devices.MapGet("/device", () => "Simple text from API");
+            devices.MapGet("/device", () =>
+            {
+                Results.Ok("Simple text from API");
+            })
+            .RequireAuthorization(policy =>
+            {
+                policy.RequireRole("Admin");
+            });
                 
            
-            devices.MapGet("/devices", () => Collections.Devices.DeviceList)
-                .AllowAnonymous();
+            devices.MapGet("/devices", () =>
+            {
+                if (Collections.Devices.DeviceList != null && 
+                    Collections.Devices.DeviceList.Count > 0)
+                {
+                    return Results.Ok(Collections.Devices.DeviceList);
+                }
+                else
+                {
+                    return Results.StatusCode(5); // 5 = does not exits;
+                }
+                
+
+            }).AllowAnonymous();
+
+
 
             devices.MapGet("/device/{DeviceId}",
-                (int DeviceId) => Collections.Devices.DeviceList
-                .FirstOrDefault(device => device.DeviceId == DeviceId));
+                (int DeviceId) =>
+                {
+                    var device = Collections.Devices.DeviceList
+                        .FirstOrDefault(device => device.DeviceId == DeviceId);
+
+                    if (device != null)
+                    {
+                        return Results.Ok(device);
+                    }
+                    else
+                    {
+                        return Results.StatusCode(1); // 1 = not found
+                    }
+
+                }).AllowAnonymous();
 
             devices.MapPost("/device/add", (Device device) =>
             {
                 Random rnd = new Random();
                 device.DeviceId = rnd.Next(100000);
                 Collections.Devices.DeviceList.Add(device);
-                return Results.Accepted("Accepted");
+                return Results.Ok("Add Ok");
+            }).RequireAuthorization(policy =>
+            {
+                policy.RequireRole("Admin");
             });
-
 
             devices.MapPut("/device/edit/{DeviceId}", (int DeviceId, Device device) =>
             {
@@ -36,6 +72,11 @@ namespace DeviceApi.Endpoints
                     currentDevice.Status = device.Status;
                     currentDevice.DeviceType = device.DeviceType;
                     currentDevice.Date = device.Date;
+                    return Results.Ok("Edit Ok");
+                }
+                else
+                {
+                    return Results.StatusCode(3); // 3 = could not add
                 }
             });
 
@@ -46,12 +87,15 @@ namespace DeviceApi.Endpoints
                 if (Device != null)
                 {
                     Collections.Devices.DeviceList.Remove(Device);
-                    return Results.Ok("Ok");
+                    return Results.Ok("Delete Ok"); // 0 = ok
                 }
                 else
                 {
-                    return Results.NotFound("Could not delete!");
+                    return Results.StatusCode(4); // 4 = could not delete
                 }
+            }).RequireAuthorization(policy =>
+            {
+                policy.RequireRole("Admin");
             });
 
 
