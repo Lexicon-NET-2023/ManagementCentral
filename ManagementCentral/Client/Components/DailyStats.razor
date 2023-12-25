@@ -1,4 +1,13 @@
-﻿<table class="table">
+﻿@inject HttpClient Http
+
+@if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+        @ErrorMessage
+    </div>
+}
+
+<table class="table">
     <thead>
         <tr>
             <th scope="col">Total Devices</th>
